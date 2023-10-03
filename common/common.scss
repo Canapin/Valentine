@@ -1,0 +1,70 @@
+$heartWidth: 100px;
+$heartHeight: 100px;
+$partWidth: 50px;
+$partHeight: 80px;
+
+// Define attributes for each heart
+$heartAttributes: (
+  1: (left: 5%, top: 15%, rotation: -15deg, scale: 2, color: var(--love-variation1)),
+  2: (left: 7%, top: 40%, rotation: 10deg, scale: 1.25),
+  3: (left: 5%, top: 80%, rotation: -5deg, scale: 1.5, color: var(--love-variation2)),
+  4: (right: 5%, top: 20%, rotation: 7deg, scale: 1.1),
+  5: (right: 7%, top: 70%, rotation: -10deg, scale: 1.8, color: var(--love-variation1)),
+);
+
+#valentine {
+  //display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  content: "test";
+}
+@media (min-width: 1920px) {
+  #valentine {
+    display: block;
+  }
+}
+
+.valentine-heart {
+  position: absolute;
+  width: $heartWidth;
+  height: $heartHeight;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: $partWidth;
+    height: $partHeight;
+    border-radius: 50px 50px 0 0;
+    background: var(--love-base);
+  }
+
+  &::before {
+    left: $partWidth;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+  }
+
+  &::after {
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+  }
+
+  // Loop through each position and apply it to the heart
+  @each $index, $attribute in $heartAttributes {
+    &:nth-child(#{$index}) {
+      left: map-get($attribute, left);
+      top: map-get($attribute, top);
+      right: map-get($attribute, right);
+      bottom: map-get($attribute, bottom);
+      transform: rotate(map-get($attribute, rotation)) scale(map-get($attribute, scale));
+      &:after,
+      &:before {
+        background: map-get($attribute, color);
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+// Used to create only a dark version of the regular love color
+$love-base-dark: desaturate($love, 50%);
+
+// first variation
+$love-variation1-light: adjust-hue($love, -30deg);
+$love-variation1-dark: desaturate($love-variation1-light, 50%);
+
+// second variation
+$love-variation2-light: adjust-hue($love, 30deg);
+$love-variation2-dark: desaturate($love-variation2-light, 50%);
+
+// dark version of the regular love color
+$love-base: dark-light-choose($love, $love-base-dark);
+
+// two variations of the love color
+$love-variation1: dark-light-choose($love-variation1-light, $love-variation1-dark);
+$love-variation2: dark-light-choose($love-variation2-light, $love-variation2-dark);
+
+:root {
+  --love-base: #{$love-base};
+  --love-variation1: #{$love-variation1};
+  --love-variation2: #{$love-variation2};
+}
